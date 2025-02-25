@@ -38,9 +38,9 @@ const GroupDetails = () => {
               Members
             </h3>
             <ul className="space-y-2">
-              {Array.from({ length: group.users }).map((_, index) => (
-                <li key={index} className="text-gray-700">
-                  Member {index + 1}
+              {group.users.map((item, index) => (
+                <li key={item._id} className="text-gray-700">
+                  {item.name}
                 </li>
               ))}
             </ul>

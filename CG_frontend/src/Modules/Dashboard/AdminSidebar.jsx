@@ -12,15 +12,18 @@ import {
 } from 'lucide-react';
 import AdminDashboard from './AdminDashboard';
 import { Link, Outlet } from 'react-router-dom';
+import { authStore } from '@/Stores/store';
 
 const AdminSidebar = () => {
   const [collapsed, setCollapsed] = useState(false);
   const [active, setActive] = useState('dashboard');
 
+  const { logout } = authStore();
+
   const menuItems = [
     { id: 'dashboard', label: 'Dashboard', icon: Home, link: "/dashboard/admin" },
     { id: 'users', label: 'Users', icon: Users, link: "/dashboard/admin/users" },
-    { id: 'products', label: 'Groups', icon: ShoppingCart ,link: "/dashboard/admin/groups"},
+    { id: 'products', label: 'Groups', icon: ShoppingCart, link: "/dashboard/admin/groups" },
     { id: 'analytics', label: 'Analytics', icon: BarChart2 },
     { id: 'settings', label: 'Settings', icon: Settings },
     { id: 'help', label: 'Help & Support', icon: HelpCircle },
@@ -74,15 +77,13 @@ const AdminSidebar = () => {
         {/* Footer */}
         <div className="p-4 border-t border-gray-700">
           <button className={`flex items-center p-2 text-gray-300 hover:bg-gray-700 rounded-md w-full ${collapsed ? 'justify-center' : 'justify-start'
-            }`}>
+            }`} onClick={logout}>
             <LogOut size={20} />
             {!collapsed && <span className="ml-2">Logout</span>}
           </button>
         </div>
       </div>
 
-      {/* Main content area */}
-      {/* <AdminDashboard /> */}
       <Outlet />
 
     </div>

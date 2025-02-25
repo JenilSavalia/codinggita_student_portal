@@ -61,14 +61,39 @@ export const authStore = create((set, get) => ({
 
 
 export const useAdminStore = create((set) => ({
-
     groups: undefined,
 
-    // Function to go to the next step
-    setGroups: (data) => set((state) => ({ groups: data })),
+    // Function to set groups
+    setGroups: (data) => set({ groups: data }),
 
+    // Function to create a new group
+    CreateGroup: async (GroupData) => {
+        try {
+            const res = await axios.post("http://localhost:8080/group", {
 
+                group_name: GroupData.name,
+                description: GroupData?.description,
+                users: GroupData.members,
+                created_by: authStore.getState().user._id,
+
+            });
+
+            // Update the groups state with the new group
+            // set((state) => ({
+            //     groups: state.groups ? [...state.groups, res.data.group] : [res.data.group],
+            // }));
+
+            return { success: true, data: res.data };
+        } catch (error) {
+            console.error("Error creating group:", error);
+            return {
+                success: false,
+                message: error.response?.data?.error || "Failed to create group",
+            };
+        }
+    },
 }));
+
 
 export const usePortfolioStore = create((set) => ({
     step: 1,

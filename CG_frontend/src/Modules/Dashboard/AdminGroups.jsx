@@ -5,6 +5,7 @@ import GroupModal from "./GroupModal";
 import GroupDetails from "./GroupDetails";
 import axios from "axios";
 import { useAdminStore } from '../../Stores/store.js'
+import CreateNewGroup from "./CreateNewGroup";
 
 
 const App = () => {
@@ -95,13 +96,14 @@ const App = () => {
                             className="pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
                     </div>
-                    <button
+                    {/* <button
                         onClick={() => setIsModalOpen(true)}
                         className="flex items-center bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
                     >
                         <Plus size={20} className="mr-2" />
                         Create New Group
-                    </button>
+                    </button> */}
+                    <CreateNewGroup />
                 </div>
             </header>
 
