@@ -267,6 +267,34 @@ export const deleteUsersFromGroup = async (req, res) => {
 };
 
 
+// Delete Group by Id 
+export const deleteGroupByID = async (req, res) => {
+    const { groupId } = req.params;
+
+    try {
+        // Step 1: Find the group to be deleted
+        const group = await Group.findById(groupId);
+        if (!group) {
+            return res.status(404).json({ error: "Group not found" });
+        }
+
+        // Step 2: Remove the group ID from all users who are members of the group
+        await User.updateMany(
+            { _id: { $in: group.users } }, // Find users who are in the group
+            { $pull: { groups: groupId } } // Remove the group ID from their `groups` array
+        );
+
+        // Step 3: Delete the group from the database
+        await Group.findByIdAndDelete(groupId);
+
+        // Step 4: Send a success response
+        res.json({ message: "Group deleted successfully" });
+    } catch (error) {
+        console.error("Error deleting group:", error);
+        res.status(500).json({ error: "Failed to delete group" });
+    }
+};
+
 
 // Task Controllers
 

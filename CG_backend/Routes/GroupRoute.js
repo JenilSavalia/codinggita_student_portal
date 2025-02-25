@@ -1,6 +1,6 @@
 import express from 'express'
 import protect from '../Middlleware/protect.js'
-import { AddNewGroup, addUsersToGroup, deleteUsersFromGroup, getGroup, AddTaskByGroupId, getAllGroup, FindGroupByPermissionTutor, updateTutorAccess } from '../Controller/Group.Controller/Group.Controller.js';
+import { AddNewGroup, addUsersToGroup, deleteUsersFromGroup, getGroup, AddTaskByGroupId, getAllGroup, FindGroupByPermissionTutor, updateTutorAccess, deleteGroupByID } from '../Controller/Group.Controller/Group.Controller.js';
 
 
 const GroupRoute = express.Router()
@@ -52,8 +52,12 @@ GroupRoute.post("/", AddNewGroup);
 GroupRoute.put("/", addUsersToGroup);
 
 
+// Delete Group
+GroupRoute.delete("/:groupId", deleteGroupByID);
+
+
 // Delete User From Group by Group ID
-GroupRoute.delete("/", deleteUsersFromGroup);
+GroupRoute.delete("/user", deleteUsersFromGroup);
 
 
 

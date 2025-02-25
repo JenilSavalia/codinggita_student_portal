@@ -9,13 +9,13 @@ const Unauthorized = () => {
       <div className="text-center space-y-8">
         {/* Glitch Effect */}
         <div className="relative">
-          <h1 className="text-9xl font-bold text-purple-600 animate-pulse">
+          <h1 className="text-6xl font-bold text-purple-600 animate-pulse">
             Unauthorized
           </h1>
-          <div className="absolute top-0 left-0 w-full text-9xl font-bold text-red-500 opacity-30 animate-glitch1">
+          <div className="absolute top-0 left-0 w-full text-6xl font-bold text-red-500 opacity-30 animate-glitch1">
             Unauthorized
           </div>
-          <div className="absolute top-0 left-0 w-full text-9xl font-bold text-blue-500 opacity-30 animate-glitch2">
+          <div className="absolute top-0 left-0 w-full text-6xl font-bold text-blue-500 opacity-30 animate-glitch2">
             Unauthorized
           </div>
         </div>

@@ -92,6 +92,57 @@ export const useAdminStore = create((set) => ({
             };
         }
     },
+
+
+    // Function to add users to a group
+    addUsersToGroup: async (groupId, userIds) => {
+        try {
+            const response = await axios.put('http://localhost:8080/group', {
+                groupId,
+                userIds,
+            });
+
+            // If successful, update the state (optional)
+            // set((state) => ({
+            //     groups: state.groups.map((group) =>
+            //         group._id === groupId
+            //             ? { ...group, users: [...group.users, ...userIds] }
+            //             : group
+            //     ),
+            // }));
+
+            return { success: true, data: response.data };
+        } catch (error) {
+            console.error("Error adding users to group:", error);
+            return {
+                success: false,
+                message: error.response?.data?.error || "Failed to add users to group",
+            };
+        }
+    },
+
+
+    deleteGroup: async (groupId) => {
+        try {
+            const response = await axios.delete(`http://localhost:8080/group/${groupId}`);
+
+            // If successful, update the state by removing the deleted group
+            // set((state) => ({
+            //     groups: state.groups.filter((group) => group._id !== groupId),
+            // }));
+
+            return { success: true, data: response.data };
+        } catch (error) {
+            console.error("Error deleting group:", error);
+            return {
+                success: false,
+                message: error.response?.data?.error || "Failed to delete group",
+            };
+        }
+    },
+
+
+
 }));
 
 

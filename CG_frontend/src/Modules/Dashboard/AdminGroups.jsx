@@ -6,6 +6,7 @@ import GroupDetails from "./GroupDetails";
 import axios from "axios";
 import { useAdminStore } from '../../Stores/store.js'
 import CreateNewGroup from "./CreateNewGroup";
+import AddUSerToGroup from "./AddUSerToGroup";
 
 
 const App = () => {
@@ -17,7 +18,7 @@ const App = () => {
     const [error, setError] = useState(null);
 
 
-    const { groups, setGroups } = useAdminStore()
+    const { groups, setGroups, deleteGroup } = useAdminStore()
 
     console.log(groups)
 
@@ -72,7 +73,20 @@ const App = () => {
 
 
 
+    const handleDelete = async (groupId) => {
+        if (!groupId) {
+            alert("Please provide a group ID.");
+            return;
+        }
 
+        const result = await deleteGroup(groupId);
+
+        if (result.success) {
+            alert("Group deleted successfully!");
+        } else {
+            alert(result.message);
+        }
+    };
 
 
 
@@ -96,13 +110,6 @@ const App = () => {
                             className="pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
                     </div>
-                    {/* <button
-                        onClick={() => setIsModalOpen(true)}
-                        className="flex items-center bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
-                    >
-                        <Plus size={20} className="mr-2" />
-                        Create New Group
-                    </button> */}
                     <CreateNewGroup />
                 </div>
             </header>
@@ -132,11 +139,11 @@ const App = () => {
                                 <td className="px-6 py-4">
                                     <span className="px-2 py-1 text-sm bg-green-100 text-green-800 rounded-full">Active</span>
                                 </td>
-                                <td className="px-6 py-4 flex space-x-4">
+                                <td className="flex space-x-">
                                     <button className="text-blue-500 hover:text-blue-700">
-                                        <Edit size={18} />
+                                        <AddUSerToGroup groupid={group._id} />
                                     </button>
-                                    <button onClick={() => handleDeleteGroup(group.id)} className="text-red-500 hover:text-red-700">
+                                    <button onClick={() => handleDelete(group._id)} className="text-red-500 hover:text-red-700">
                                         <Trash size={18} />
                                     </button>
                                 </td>
