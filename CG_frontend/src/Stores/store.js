@@ -142,6 +142,35 @@ export const useAdminStore = create((set) => ({
     },
 
 
+    addTaskToGroup: async (groupID, taskData) => {
+        try {
+            const payload = {
+                task: {
+                    task_title: taskData.taskName, // Ensure this matches the backend's expected field name
+                    due_date: taskData.dueDate, // Ensure this matches the backend's expected field name
+                    Priority: taskData.priority || 'Medium', // Ensure this matches the backend's expected field name
+                    created_by: taskData.createdBy || '67b9a3afcfcab0e89cc9ae8e', // Ensure this matches the backend's expected field name
+                }
+            };
+
+            console.log("Sending payload:", payload); // Log the payload for debugging
+
+            const response = await axios.post(`http://localhost:8080/group/task/${groupID}`, payload);
+
+            console.log("Response from server:", response.data); // Log the response for debugging
+
+            return response.data;
+        } catch (error) {
+            console.error("Error adding task:", error);
+            if (error.response) {
+                console.error("Server response data:", error.response.data); // Log the server's error response
+                console.error("Server response status:", error.response.status); // Log the status code
+            }
+            throw error;
+        }
+    }
+
+
 
 }));
 

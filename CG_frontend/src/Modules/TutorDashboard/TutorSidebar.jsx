@@ -11,6 +11,8 @@ import {
   X
 } from 'lucide-react';
 import TutorDashboard from './TutorDashboard';
+import { authStore } from '@/Stores/store';
+import { useNavigate } from 'react-router-dom';
 
 const TutorSidebar = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -25,8 +27,23 @@ const TutorSidebar = () => {
     { id: 'help', label: 'Help & Support', icon: HelpCircle },
   ];
 
+  const { logout } = authStore();
+  const navigate = useNavigate();
+
+
+  const LogoutFnct = () => {
+
+    navigate('/');
+
+    setTimeout(() => {
+      logout()
+    }, 2000)
+
+  }
+
   return (
     <div className="flex h-screen">
+
       <div
         className={`bg-gray-800 text-white transition-all duration-300 flex flex-col ${collapsed ? 'w-16' : 'w-64'
           }`}
@@ -70,7 +87,7 @@ const TutorSidebar = () => {
         {/* Footer */}
         <div className="p-4 border-t border-gray-700">
           <button className={`flex items-center p-2 text-gray-300 hover:bg-gray-700 rounded-md w-full ${collapsed ? 'justify-center' : 'justify-start'
-            }`}>
+            }`} onClick={() => LogoutFnct()}>
             <LogOut size={20} />
             {!collapsed && <span className="ml-2">Logout</span>}
           </button>

@@ -11,7 +11,7 @@ import {
   X
 } from 'lucide-react';
 import AdminDashboard from './AdminDashboard';
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Outlet, useNavigate } from 'react-router-dom';
 import { authStore } from '@/Stores/store';
 
 const AdminSidebar = () => {
@@ -29,6 +29,17 @@ const AdminSidebar = () => {
     { id: 'help', label: 'Help & Support', icon: HelpCircle },
   ];
 
+  const navigate = useNavigate();
+
+  const LogoutFnct = () => {
+
+    navigate('/');
+
+    setTimeout(() => {
+      logout()
+    }, 2000)
+
+  }
 
   return (
     <div className="flex h-screen">
@@ -77,7 +88,7 @@ const AdminSidebar = () => {
         {/* Footer */}
         <div className="p-4 border-t border-gray-700">
           <button className={`flex items-center p-2 text-gray-300 hover:bg-gray-700 rounded-md w-full ${collapsed ? 'justify-center' : 'justify-start'
-            }`} onClick={logout}>
+            }`} onClick={() => LogoutFnct()}>
             <LogOut size={20} />
             {!collapsed && <span className="ml-2">Logout</span>}
           </button>

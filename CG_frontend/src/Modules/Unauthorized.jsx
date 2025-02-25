@@ -33,14 +33,14 @@ const Unauthorized = () => {
 
         {/* Interactive Elements */}
         <div className="space-y-4">
-          <button 
-            onClick={() => navigate('/')}
+          <button
+            onClick={() => navigate('/login')}
             className="px-6 py-3 bg-purple-600 text-white rounded-full 
                      hover:bg-purple-700 transform hover:scale-105 
                      transition-all duration-300 shadow-lg 
                      hover:shadow-purple-500/50"
           >
-            Beam Me Home
+            Login!!
           </button>
 
           {/* Floating Elements */}

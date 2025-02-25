@@ -37,9 +37,6 @@ function App() {
         <Routes>
 
 
-
-
-
           <Route element={<Revamp2 />}>
             <Route
               path="/port"
@@ -64,6 +61,7 @@ function App() {
             <Route path="/activity" element={<ActivityPage />} />
             <Route path="/newsletter" element={<Newsletter />} />
 
+            <Route path="/unauthorized" element={<Unauthorized />} />
 
             <Route path='*' element={<NotFound />} />
 
@@ -73,7 +71,6 @@ function App() {
           {/* <Route path="/signup" element={<SignUp />} /> */}
 
 
-          <Route path="/unauthorized" element={<Unauthorized />} />
 
           {/* Protected Routes with Role-Based Access */}
 

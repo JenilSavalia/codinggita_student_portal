@@ -9,8 +9,11 @@ import protect from '../Middlleware/protect.js'
 
 const EventRouter = express.Router()
 
-EventRouter.get('/', protect("LevelFour"), getEventList)
-EventRouter.post('/', protect("LevelThree"), postEvent)
-EventRouter.delete('/', protect("LevelOne"), deleteEvent)
+EventRouter.get('/', getEventList)
+EventRouter.post('/', postEvent)
+EventRouter.delete('/', deleteEvent)
+// EventRouter.get('/', protect("LevelFour"), getEventList)
+// EventRouter.post('/', protect("LevelThree"), postEvent)
+// EventRouter.delete('/', protect("LevelOne"), deleteEvent)
 
 export default EventRouter;

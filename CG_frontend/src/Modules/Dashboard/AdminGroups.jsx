@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Plus, Edit, Trash, Users, Search } from "lucide-react";
+import { Plus, Edit, Trash, Users, Search, Loader } from "lucide-react";
 import { Link, Route, Routes } from "react-router-dom";
 import GroupModal from "./GroupModal";
 import GroupDetails from "./GroupDetails";
@@ -7,6 +7,8 @@ import axios from "axios";
 import { useAdminStore } from '../../Stores/store.js'
 import CreateNewGroup from "./CreateNewGroup";
 import AddUSerToGroup from "./AddUSerToGroup";
+import Loading from "@/components/ui/Loading";
+import AddTaskPopup from "./AddTaskPopup";
 
 
 const App = () => {
@@ -17,10 +19,14 @@ const App = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
+    const [isPopupOpen, setIsPopupOpen] = useState(false);
+
+
 
     const { groups, setGroups, deleteGroup } = useAdminStore()
 
     console.log(groups)
+
 
 
     const fetchAllGroups = async () => {
@@ -56,15 +62,18 @@ const App = () => {
                 setGroups(data);
             } catch (err) {
                 setError(err.message);
-            } finally {
-                setLoading(false);
             }
         };
         loadGroups();
     }, []);
 
+    setTimeout(() => {
+        setLoading(false)
+    }, 800)
+
+
     if (loading) {
-        return <div>Loading groups...</div>;
+        return <Loading />;
     }
 
     if (error) {
@@ -102,15 +111,30 @@ const App = () => {
             <header className="flex justify-between items-center mb-6">
                 <h1 className="text-2xl font-bold">Student Groups Management</h1>
                 <div className="flex items-center space-x-4">
-                    <div className="relative">
+                    {/* <div className="relative">
                         <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
                         <input
                             type="text"
                             placeholder="Search groups..."
                             className="pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
-                    </div>
+                    </div> */}
+                    <button
+                        onClick={() => setIsPopupOpen(true)}
+                        className="px-4 py-2 bg-black text-white rounded-md hover:bg-gray-900"
+                    >
+                        Add Task
+                    </button>
+                    <button
+                        onClick={() => setIsPopupOpen(true)}
+                        className="px-4 py-2 bg-black text-white rounded-md hover:bg-gray-900"
+                    >
+                        Add User
+                    </button>
+
+                    {isPopupOpen && <AddTaskPopup onClose={() => setIsPopupOpen(false)} groups={groups} />}
                     <CreateNewGroup />
+
                 </div>
             </header>
 
@@ -127,7 +151,7 @@ const App = () => {
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-200">
-                        {groups.map((group) => (
+                        {groups?.map((group) => (
                             <tr key={group._id}>
                                 <td className="px-6 py-4">
                                     <Link to={`/dashboard/admin/groups/${group._id} `} className="text-blue-500 hover:underline">
