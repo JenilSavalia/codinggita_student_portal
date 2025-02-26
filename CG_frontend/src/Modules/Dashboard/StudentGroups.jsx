@@ -13,6 +13,7 @@ import {
     Check,
     Image
 } from 'lucide-react';
+import Loading from '@/components/ui/Loading.jsx';
 
 
 const StudentGroups = () => {
@@ -53,7 +54,7 @@ const StudentGroups = () => {
     }, []);
 
     if (loading) {
-        return <div>Loading groups...</div>;
+        return <Loading />
     }
 
     if (error) {
