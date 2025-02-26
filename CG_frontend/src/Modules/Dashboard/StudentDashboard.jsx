@@ -1,10 +1,11 @@
 import React from 'react';
 import { User, Calendar, FolderPlus, UserCircle, Clock, LogOut, Settings } from 'lucide-react';
-import AdminSidebar from './AdminSidebar';
+
 
 const StudentDashboard = () => {
   return (
     <>
+  
       <div className="min-h-screen bg-gray-900 text-gray-100 w-full">
         {/* Main Grid Layout */}
         <div className="grid grid-cols-12 gap-6 p-6 ">

@@ -138,10 +138,11 @@ export const getGroup = async (req, res) => {
         // Step 1: Find all groups by IDs and populate the 'users' field
         const groups = await Group.find({
             _id: { $in: groupIDs }
-        }).populate({
-            path: 'users',
-            select: 'name email'
-        });
+        })
+        // .populate({
+        //     path: 'users',
+        //     select: 'name email'
+        // });
 
         // Step 2: Check if any groups were found
         if (!groups || groups.length === 0) {
@@ -156,6 +157,40 @@ export const getGroup = async (req, res) => {
         res.status(500).json({ error: "Failed to get Groups" });
     }
 };
+
+
+export const GetGroupsForStudent = async (req, res) => {
+    const { userID } = req.params;
+
+    // Validate userID
+    if (!mongoose.Types.ObjectId.isValid(userID)) {
+        return res.status(400).json({ error: "Invalid user ID" });
+    }
+
+    try {
+        // Step 1: Find the user by ID and populate the groups array
+        const user = await User.findById(userID).populate({
+            path: 'groups', // Field to populate
+        });
+
+        // Step 2: Check if the user exists
+        if (!user) {
+            return res.status(404).json({ error: "User not found" });
+        }
+
+        // Step 3: Extract the populated groups array from the user data
+        const groups = user.groups;
+
+        // Step 4: Send success response with the populated groups array
+        res.json({ message: "User groups fetched successfully", groups });
+    } catch (error) {
+        console.error("Error fetching user groups:", error);
+        res.status(500).json({ error: "Failed to fetch user groups" });
+    }
+};
+
+
+
 
 // Create A new Group
 export const AddNewGroup = async (req, res) => {

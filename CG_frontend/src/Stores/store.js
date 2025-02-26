@@ -171,6 +171,28 @@ export const useAdminStore = create((set) => ({
     }
 
 
+}));
+
+
+
+export const useStudentStore = create((set) => ({
+
+    StudentGroups: undefined,
+
+    getGroupsByIds: async (userID) => {
+
+        try {
+            // Make the API request
+            const response = await axios.get(`http://localhost:8080/group/student/${userID}`);
+
+            // Update the state with the fetched groups
+            set({ StudentGroups: response.data.groups });
+        } catch (error) {
+            console.error("Error fetching user groups:", error);
+            set({ error: error.response?.data?.error || "Failed to fetch user groups", loading: false });
+        }
+    },
+
 
 }));
 

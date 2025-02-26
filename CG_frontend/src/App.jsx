@@ -28,6 +28,8 @@ import Unauthorized from './Modules/Unauthorized';
 import AdminUsersList from './Modules/Dashboard/AdminUsersList';
 import AdminGroups from './Modules/Dashboard/AdminGroups';
 import GroupDetails from './Modules/Dashboard/GroupDetails';
+import StudentDashboard from './Modules/Dashboard/StudentDashboard';
+import StudentGroups from './Modules/Dashboard/StudentGroups';
 
 function App() {
 
@@ -111,14 +113,6 @@ function App() {
           </Route>
 
 
-          {/* <Route
-            path="/dashboard/admin/users"
-            element={
-              <ProtectedRoute access="Admin">
-                <AdminUsersList />
-              </ProtectedRoute>
-            }
-          /> */}
           <Route
             path="/dashboard/tutor"
             element={
@@ -127,14 +121,30 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route
-            path="/dashboard/student"
-            element={
-              <ProtectedRoute access="Student">
-                <StudentSidebar />
-              </ProtectedRoute>
-            }
-          />
+
+
+          <Route element={<StudentSidebar />}>
+            <Route
+              path="/dashboard/student"
+              element={
+                <ProtectedRoute access="Student">
+                  <StudentDashboard />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/dashboard/student/groups"
+              element={
+                <ProtectedRoute access="Student">
+                  <StudentGroups />
+                </ProtectedRoute>
+              }
+            />
+
+          </Route>
+
+
+
 
 
 

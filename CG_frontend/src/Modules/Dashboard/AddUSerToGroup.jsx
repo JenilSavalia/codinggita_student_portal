@@ -15,7 +15,7 @@ import { authStore, useAdminStore } from '@/Stores/store';
 
 
 
-const AddUSerToGroup = ({ groupid }) => {
+const AddUSerToGroup = ({ groups }) => {
     const [selectedUsers, setSelectedUsers] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
 
@@ -123,7 +123,7 @@ const AddUSerToGroup = ({ groupid }) => {
                 <Dialog open={showCreateGroup} onOpenChange={setShowCreateGroup}>
                     <DialogTrigger asChild>
                         <Button className="flex items-center gap-2">
-                            <Edit size={10} />
+                            <Edit size={10} /> Add Users 
                         </Button>
 
                     </DialogTrigger>

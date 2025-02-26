@@ -8,21 +8,24 @@ import {
   HelpCircle,
   LogOut,
   Menu,
-  X
+  X,
+  Hash
 } from 'lucide-react';
 import StudentDashboard from './StudentDashboard';
+import { Link, Outlet, useNavigate } from 'react-router-dom';
+
 
 const StudentSidebar = () => {
   const [collapsed, setCollapsed] = useState(false);
   const [active, setActive] = useState('dashboard');
 
   const menuItems = [
-    { id: 'dashboard', label: 'Dashboard', icon: Home,link:"dashboard/admin" },
-    { id: 'users', label: 'Users', icon: Users,link:"dashboard/users" },
-    { id: 'products', label: 'Products', icon: ShoppingCart },
-    { id: 'analytics', label: 'Analytics', icon: BarChart2 },
-    { id: 'settings', label: 'Settings', icon: Settings },
-    { id: 'help', label: 'Help & Support', icon: HelpCircle },
+    { id: 'dashboard', label: 'Dashboard', icon: Home, link: "/dashboard/student" },
+    { id: 'users', label: 'Groups', icon: Hash, link: "/dashboard/student/groups" },
+    // { id: 'products', label: 'Products', icon: ShoppingCart },
+    // { id: 'analytics', label: 'Analytics', icon: BarChart2 },
+    // { id: 'settings', label: 'Settings', icon: Settings },
+    // { id: 'help', label: 'Help & Support', icon: HelpCircle },
   ];
 
   return (
@@ -80,7 +83,8 @@ const StudentSidebar = () => {
       </div>
 
       {/* Main content area */}
-      <StudentDashboard />
+      {/* <StudentDashboard /> */}
+      <Outlet />
     </div>
   );
 };

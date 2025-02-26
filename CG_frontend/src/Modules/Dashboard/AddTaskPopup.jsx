@@ -7,7 +7,7 @@ const AddTaskPopup = ({ onClose, groups }) => {
   const [assignTo, setAssignTo] = useState(null);
   const [description, setDescription] = useState("");
   const [dueDate, setDueDate] = useState("");
-  const [priority, setPriority] = useState("low");
+  const [priority, setPriority] = useState("Low");
   const [searchQuery, setSearchQuery] = useState("");
 
   const { user } = authStore();

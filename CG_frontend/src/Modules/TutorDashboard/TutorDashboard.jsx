@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios';
 import AddTaskForm from './AddTaskForm';
+import AddTaskPopup from '../Dashboard/AddTaskPopup';
+import Loading from '@/components/ui/Loading';
 
 
 
@@ -16,6 +18,9 @@ const TutorDashboard = () => {
     const [expandedGroupId, setExpandedGroupId] = useState(null);
 
     const [selectedGroupID, setSelectedGroupID] = useState('');
+
+    const [isPopupOpen, setIsPopupOpen] = useState(false);
+
 
     const handleGroupChange = (e) => {
         setSelectedGroupID(e.target.value); // Update the selected group ID
@@ -71,7 +76,7 @@ const TutorDashboard = () => {
     }, []);
 
     if (loading) {
-        return <div>Loading groups...</div>;
+        return <Loading />;
     }
 
     if (error) {
@@ -79,11 +84,20 @@ const TutorDashboard = () => {
     }
 
     return (
-        <div className='ml-24 flex'>
-            <h1>Groups</h1>
+        <div className='w-full max-h-max overflow-y-auto bg-gray-100'>
+
+
+            <button
+                onClick={() => setIsPopupOpen(true)}
+                className="px-4 py-2 bg-black text-white rounded-md hover:bg-gray-900 mx-5 mt-9"
+            >
+                Add Task
+            </button>
+            {isPopupOpen && <AddTaskPopup onClose={() => setIsPopupOpen(false)} groups={groups} />}
+
             <ul>
 
-                <div className="p-6 bg-gray-100 min-h-screen">
+                <div className="p-6  min-h-screen">
                     {groups.map((group) => (
                         <div key={group._id} className="bg-white p-6 rounded-lg shadow-md mb-6">
                             {/* Group Header (Clickable to toggle collapse) */}
@@ -153,7 +167,8 @@ const TutorDashboard = () => {
                 </div>
             </ul>
 
-            <div>
+
+            {/* <div>
                 <div className="mb-4">
                     <label className="block text-gray-700">Select Group</label>
                     <select
@@ -172,8 +187,7 @@ const TutorDashboard = () => {
                     </select>
                 </div>
                 <AddTaskForm groupID={selectedGroupID} />
-            </div>
-
+            </div> */}
         </div>
     );
 

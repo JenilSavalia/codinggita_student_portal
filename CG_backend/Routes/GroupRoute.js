@@ -1,6 +1,6 @@
 import express from 'express'
 import protect from '../Middlleware/protect.js'
-import { AddNewGroup, addUsersToGroup, deleteUsersFromGroup, getGroup, AddTaskByGroupId, getAllGroup, FindGroupByPermissionTutor, updateTutorAccess, deleteGroupByID } from '../Controller/Group.Controller/Group.Controller.js';
+import { AddNewGroup, addUsersToGroup, deleteUsersFromGroup, getGroup, AddTaskByGroupId, getAllGroup, FindGroupByPermissionTutor, updateTutorAccess, deleteGroupByID, GetGroupsForStudent } from '../Controller/Group.Controller/Group.Controller.js';
 
 
 const GroupRoute = express.Router()
@@ -10,6 +10,9 @@ const GroupRoute = express.Router()
 
 // Get all groups
 GroupRoute.get("/all", getAllGroup)
+
+// Get all groups
+GroupRoute.get("/student/:userID", GetGroupsForStudent)
 
 
 // Get all groups which Tutor has Permission

@@ -125,12 +125,7 @@ const App = () => {
                     >
                         Add Task
                     </button>
-                    <button
-                        onClick={() => setIsPopupOpen(true)}
-                        className="px-4 py-2 bg-black text-white rounded-md hover:bg-gray-900"
-                    >
-                        Add User
-                    </button>
+                    <AddUSerToGroup groups={groups} />
 
                     {isPopupOpen && <AddTaskPopup onClose={() => setIsPopupOpen(false)} groups={groups} />}
                     <CreateNewGroup />
@@ -163,10 +158,10 @@ const App = () => {
                                 <td className="px-6 py-4">
                                     <span className="px-2 py-1 text-sm bg-green-100 text-green-800 rounded-full">Active</span>
                                 </td>
-                                <td className="flex space-x-">
-                                    <button className="text-blue-500 hover:text-blue-700">
+                                <td className="flex space-x-2 p-4 ">
+                                    {/* <button className="text-blue-500 hover:text-blue-700">
                                         <AddUSerToGroup groupid={group._id} />
-                                    </button>
+                                    </button> */}
                                     <button onClick={() => handleDelete(group._id)} className="text-red-500 hover:text-red-700">
                                         <Trash size={18} />
                                     </button>
